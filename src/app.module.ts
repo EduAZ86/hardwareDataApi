@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
 import { BenchDataModule } from './bench-data/bench-data.module';
-import { CpuModule } from './cpu/cpu.module';
-import { GpuModule } from './gpu/gpu.module';
-
-
-
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
-  imports: [BenchDataModule, CpuModule, GpuModule],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGODB_URI),
+    BenchDataModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
