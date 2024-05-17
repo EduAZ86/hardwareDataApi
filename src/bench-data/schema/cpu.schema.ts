@@ -34,12 +34,14 @@ class DeviceData {
 }
 
 function createDeviceDataSchema(deviceName: string) {
-    return SchemaFactory.createForClass(DeviceData);
+    const schema = SchemaFactory.createForClass(DeviceData);
+    schema.set('collection', deviceName);
+    return schema;
 }
 
-export const CpuDataSchema = createDeviceDataSchema('cpu');
-export const GpuDataSchema = createDeviceDataSchema('gpu');
-export const RamDataSchema = createDeviceDataSchema('ram');
-export const UsbDataSchema = createDeviceDataSchema('usb');
-export const SsdDataSchema = createDeviceDataSchema('ssd');
-export const HddDataSchema = createDeviceDataSchema('hdd');
+export const CpuDataSchema = createDeviceDataSchema('cpuData');
+export const GpuDataSchema = createDeviceDataSchema('gpuData');
+export const RamDataSchema = createDeviceDataSchema('ramData');
+export const UsbDataSchema = createDeviceDataSchema('usbData');
+export const SsdDataSchema = createDeviceDataSchema('ssdData');
+export const HddDataSchema = createDeviceDataSchema('hddData');
