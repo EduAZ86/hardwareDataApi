@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { BenchDataService } from '../bench-data.service';
 import { CreateBenchDataDto } from '../dto/create-bench-data.dto'
 import { UpdateBenchDataDto } from '../dto/update-bench-data.dto';
@@ -9,26 +9,27 @@ export class HddController {
 
   @Post()
   create(@Body() createHddDto: CreateBenchDataDto) {
-    return this.benchDataService.create(createHddDto);
+    return this.benchDataService.create('hddData', createHddDto);
   }
 
+
   @Get()
-  findAll() {
-    return this.benchDataService.findAll();
+  findAll(@Query('lengthPage') lengthPage: number, @Query('offset') offset: number) {
+    return this.benchDataService.findAll('hddData', lengthPage, offset);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.benchDataService.findOne(+id);
+    return this.benchDataService.findOne('hddData', id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateHddDto: UpdateBenchDataDto) {
-    return this.benchDataService.update(+id, updateHddDto);
+    return this.benchDataService.update('hddData', id, updateHddDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.benchDataService.remove(+id);
+    return this.benchDataService.remove('hddData', id);
   }
 }

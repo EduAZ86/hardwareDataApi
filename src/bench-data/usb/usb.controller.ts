@@ -1,34 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { BenchDataService } from '../bench-data.service';
 import { CreateBenchDataDto } from '../dto/create-bench-data.dto';
 import { UpdateBenchDataDto } from '../dto/update-bench-data.dto';
 
 @Controller('usb')
 export class UsbController {
-  constructor(private readonly usbService: BenchDataService) { }
+  constructor(private readonly benchDataService: BenchDataService) { }
+
 
   @Post()
   create(@Body() createUsbDto: CreateBenchDataDto) {
-    return this.usbService.create(createUsbDto);
+    return this.benchDataService.create('usbData', createUsbDto);
   }
 
   @Get()
-  findAll() {
-    return this.usbService.findAll();
+  findAll(@Query('lengthPage') lengthPage: number, @Query('offset') offset: number) {
+    return this.benchDataService.findAll('usbData', lengthPage, offset);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usbService.findOne(+id);
+    return this.benchDataService.findOne('usbData', id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUsbDto: UpdateBenchDataDto) {
-    return this.usbService.update(+id, updateUsbDto);
+    return this.benchDataService.update('usbData', id, updateUsbDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usbService.remove(+id);
+    return this.benchDataService.remove('usbData', id);
   }
 }
