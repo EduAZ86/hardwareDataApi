@@ -6,4 +6,4 @@ import { UsbController } from './usb.controller';
   controllers: [UsbController],
   providers: [BenchDataService],
 })
-export class UsbModule {}
+export class UsbModule { }
