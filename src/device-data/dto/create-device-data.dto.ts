@@ -1,4 +1,4 @@
-export class CreateBenchDataDto {
+export class CreateDeviceDataDto {
     partNumber: string;
     brand: string;
     model: string;
@@ -9,4 +9,3 @@ export class CreateBenchDataDto {
     }
     url: string;
 }
-
