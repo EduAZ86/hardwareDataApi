@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { DeviceDataService } from './device-data.service';
 import { CreateDeviceDataDto } from './dto/create-device-data.dto';
 import { UpdateDeviceDataDto } from './dto/update-device-data.dto';
@@ -8,14 +8,17 @@ import { DeviceType } from './dto/device-type';
 export class DeviceDataController {
   constructor(private readonly deviceDataService: DeviceDataService) { }
 
-
   @Post('/:deviceType')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
   create(@Param('deviceType') deviceType: DeviceType, @Body() createDeviceDataDto: CreateDeviceDataDto) {
     return this.deviceDataService.create(deviceType, createDeviceDataDto);
   }
 
   @Get('/:deviceType')
-  findAll(@Param('deviceType') deviceType: DeviceType, @Query('lengthPage') lengthPage: number, @Query('offset') offset: number) {
+  findAll(
+    @Param('deviceType') deviceType: DeviceType,
+    @Query('lengthPage', ParseIntPipe) lengthPage: number,
+    @Query('offset', ParseIntPipe) offset: number) {
     return this.deviceDataService.findAll(deviceType, lengthPage, offset);
   }
 
